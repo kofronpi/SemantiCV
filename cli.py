@@ -3,10 +3,12 @@ from cv_ontology import initGraph
 from cvdata import addWorkExp
 from cvdata import addEdu
 from cvdata import addSkill
+from cvdata import setApplicant
 from export import exportN3
 from export import exportNT
 from export import exportTRIG
 from export import exportTURTLE
+from export import exportRDF
 
 menu_item = 0
 menu_exp = 0
@@ -21,6 +23,10 @@ print(" #####  #####  # ## # #    # # #  #   #   # #       #     #")
 print("      # #      #    # ###### #  # #   #   # #        #   #")  
 print("#     # #      #    # #    # #   ##   #   # #     #   # #")   
 print(" #####  ###### #    # #    # #    #   #   #  #####     #") 
+print("")
+print("")
+#prompt for user details
+g=setApplicant(g)
 
 while menu_item != 5:
     print("--------------------")
@@ -33,18 +39,19 @@ while menu_item != 5:
         menu_item = int(input("Pick an item from the menu: "))
     except ValueError:
         pass
-    if menu_item == 1: g=addWorkExp(g)       
-    elif menu_item == 2:g=addEdu(g)
-    elif menu_item == 3:g=addSkill(g)
+    if   menu_item == 1: g=addWorkExp(g)       
+    elif menu_item == 2: g=addEdu(g)
+    elif menu_item == 3: g=addSkill(g)
     elif menu_item == 4:
-            while menu_exp != 5:
+            while menu_exp != 6:
                 print("")
                 print("---------Export your CV to semantic data :-----------")
                 print("1. To N3")
                 print("2. To NT")
                 print("3. To TRIG")
                 print("4. To Turtle")
-                print("5. Back")
+                print("5. To RDF")
+                print("6. Back")
                 try:
                     menu_exp = int(input("Pick an item from the menu: "))
                 except ValueError:
@@ -57,6 +64,8 @@ while menu_item != 5:
                     exportTRIG(g)
                 elif menu_exp == 4:
                     exportTURTLE(g)
+                elif menu_exp == 5:
+                    exportRDF(g)
 
  
 print("Goodbye! ")

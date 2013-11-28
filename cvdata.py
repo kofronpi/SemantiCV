@@ -1,4 +1,5 @@
 from rdflib import ConjunctiveGraph, Namespace, Literal, BNode, URIRef
+from rdflib.namespace import FOAF
 from inputs import camelCase
 
 #define the namespace and classes :
@@ -108,21 +109,35 @@ def addSkill(graph):
     skCategory = input("What's this skill category? ")
     skExpertise = input("Rate your expertise in this skill from 1 to 10. ")
 
-    skillNode = BNode('_:skill')
     #define the triples:
     skillTriple = [
         (cv[skName],rdfType,cv['Skill']),
-        #skill name
-        #(skillNode,cv['has_name'],Literal(skName)),
         # skill category
         (cv[skName],cv['skCategory'],Literal(skCategory)),
         # skill expertise
-        (cv[skName],cv['skExpertise'],Literal(skExpertise))
+        (cv[skName],cv['skExpertise'],Literal(skExpertise)),
      ]
+
+    # bind applicant to skill
+    for applicant in graph.subjects(rdfType,FOAF.Person):
+        skillTriple.append((applicant,cv['has_skill'],cv[skName]))
     
     for triple in skillTriple: graph.add(triple)
         
 
     return graph
+    
+
+def setApplicant(g):
+    userName = input("Hello, what's your name? ")
+    userEmail = input("And your email? ")
+    applicant = BNode()
+    g.add(  (applicant, rdfType, FOAF.Person))
+    g.add( (applicant,FOAF.name, Literal(userName)))
+    g.add( (applicant, FOAF.mbox, URIRef(userEmail)))
+
+    return g
+    
+ 
     
     

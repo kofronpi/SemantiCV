@@ -15,4 +15,8 @@ def exportTRIG(graph):
 def exportTURTLE(graph):
     graph.serialize("exports/export.turtle",format="turtle")
     print("Turtle export file successfully written to disk.")
-    
+
+
+def exportRDF(graph):
+    graph.serialize("exports/export.rdf",format="application/rdf+xml")
+    print("RDF+XML export file successfully written to disk.")   

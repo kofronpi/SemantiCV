@@ -1,4 +1,5 @@
 from rdflib import ConjunctiveGraph, Namespace, Literal, BNode
+from rdflib.namespace import FOAF
 
 def initGraph(g):
 
@@ -14,6 +15,7 @@ def initGraph(g):
     rdfsRange = rdfsNS["range"]
     xsdNS = Namespace("http://www.w3.org/2001/XMLSchema#")
     xsdString = xsdNS["string"]
+
     
 
     #should define a proper namespace
@@ -43,6 +45,7 @@ def initGraph(g):
     skName = cv['skName']
     skCategory = cv['skCategory']
     skExpertise = cv['skExpertise']
+    hasSkill = cv['has_skill']
 
 
     #define all the triples of our schema according to the ontology rules:
@@ -121,7 +124,11 @@ def initGraph(g):
         #skCategory
         (cv['skCategory'], rdfType, owlObjectProperty),
         (cv['skCategory'], rdfsDomain, cv['Skill']),
-        (cv['skCategory'], rdfsRange, xsdString)
+        (cv['skCategory'], rdfsRange, xsdString),
+        #hasSkill
+        (cv['has_skill'], rdfType, owlObjectProperty),
+        (cv['has_skill'], rdfsDomain, FOAF.Person),
+        (cv['has_skill'], rdfsRange, cv['Skill'])
     ]
 
     for triple in schemaTriples:  g.add(triple)
