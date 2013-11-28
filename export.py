@@ -1,3 +1,4 @@
+#SemantiCV v0.1
 from rdflib import ConjunctiveGraph
 
 def exportN3(graph):
