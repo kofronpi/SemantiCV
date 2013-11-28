@@ -34,8 +34,8 @@ while menu_item != 5:
     except ValueError:
         pass
     if menu_item == 1: g=addWorkExp(g)       
-    elif menu_item == 2:addEdu()
-    elif menu_item == 3:addSkill()
+    elif menu_item == 2:g=addEdu(g)
+    elif menu_item == 3:g=addSkill(g)
     elif menu_item == 4:
             while menu_exp != 5:
                 print("")

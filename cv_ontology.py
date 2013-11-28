@@ -64,7 +64,7 @@ def initGraph(g):
         (cv['EduOrg'], rdfsSubClassOf, cv['Organization']),
         #has_name property
         (cv['has_name'], rdfType, owlObjectProperty),
-        (cv['has_name'], rdfsDomain, cv['Organization']),
+        (cv['has_name'], rdfsDomain, owlClass),
         (cv['has_name'], rdfsRange, xsdString),
         #hasLocation property
         (cv['has_location'], rdfType, owlObjectProperty),
