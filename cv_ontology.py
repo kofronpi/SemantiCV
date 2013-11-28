@@ -16,8 +16,6 @@ def initGraph(g):
     xsdNS = Namespace("http://www.w3.org/2001/XMLSchema#")
     xsdString = xsdNS["string"]
 
-    
-
     #should define a proper namespace
     cv = Namespace("")
     cvEntryClass = cv['CVEntry']
@@ -46,6 +44,8 @@ def initGraph(g):
     skCategory = cv['skCategory']
     skExpertise = cv['skExpertise']
     hasSkill = cv['has_skill']
+    hasEducation = cv['has_education']
+    hasWorkExperience = cv['has_workExperience']
 
 
     #define all the triples of our schema according to the ontology rules:
@@ -128,7 +128,15 @@ def initGraph(g):
         #hasSkill
         (cv['has_skill'], rdfType, owlObjectProperty),
         (cv['has_skill'], rdfsDomain, FOAF.Person),
-        (cv['has_skill'], rdfsRange, cv['Skill'])
+        (cv['has_skill'], rdfsRange, cv['Skill']),
+        #hasEducation
+        (cv['has_education'], rdfType, owlObjectProperty),
+        (cv['has_education'], rdfsDomain, FOAF.Person),
+        (cv['has_education'], rdfsRange, cv['Education']),
+        #hasWorkExperience
+        (cv['has_workExperience'], rdfType, owlObjectProperty),
+        (cv['has_workExperience'], rdfsDomain, FOAF.Person),
+        (cv['has_workExperience'], rdfsRange, cv['WorkExperience']),
     ]
 
     for triple in schemaTriples:  g.add(triple)

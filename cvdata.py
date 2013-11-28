@@ -45,30 +45,35 @@ skExpertise = cv['skExpertise']
 def addWorkExp(graph):
     company = input("What company hired you? ")
     company = camelCase(company)
+    companyURI = input("What is the company website?")
     place = input("Where was the company based? ")
     dateStart = input("When did the job start? ")
     dateEnd = input("When did the job end? (skip if not applicable) ")
     jobTitle = input("What was your job title? ")
     jobDescription = input("Shortly describe what was your work. ")
     #define blank node for WE
-    wexp = BNode('_:work experience')
     #define the triples:
     workExpTriple = [
-        #new work experience entry
-        (wexp,rdfType,cv['WorkExperience']),
-        #company name
-        (wexp,cv['has_name'],Literal(company)),
+        
+        #a work experience uri is the company's website in our ontology
+        (cv[companyURI],rdfType,cv['WorkExperience']),
+        (cv[company],rdfType,cv['Company']),
+        (cv[companyURI],cv['worked_in'],cv[company]),
         #place
-        (wexp,cv['has_location'],Literal(place)),
+        (cv[company],cv['has_location'],Literal(place)),
         #dateStart
-        (wexp,cv['workStartDate'],Literal(dateStart)),
+        (cv[companyURI],cv['workStartDate'],Literal(dateStart)),
         #dateEnd
-        (wexp,cv['workEndDate'],Literal(dateEnd)),
+        (cv[companyURI],cv['workEndDate'],Literal(dateEnd)),
         #jobTitle
-        (wexp,cv['jobTitle'],Literal(jobTitle)),
+        (cv[companyURI],cv['jobTitle'],Literal(jobTitle)),
         #jobDescription
-        (wexp,cv['jobDescription'],Literal(jobDescription))
+        (cv[companyURI],cv['jobDescription'],Literal(jobDescription))
     ]
+
+    # bind applicant to WorkExperience
+    for applicant in graph.subjects(rdfType,FOAF.Person):
+        workExpTriple.append((applicant,cv['has_workExperience'],cv[companyURI]))
 
     for triple in workExpTriple: graph.add(triple)
     return graph
@@ -77,27 +82,31 @@ def addWorkExp(graph):
 def addEdu(graph):
     eduOrg = input("What was your education organization? (eg: University of Technology of Sydney) ")
     eduOrg = camelCase(eduOrg)
+    eduOrgURI = input("What is your education organization website? (eg: www.uts.au) ")
     ePlace = input("Where was the organization located? (eg:Sydney) ")
     dateStart = input("When did you start studying? ")
     dateEnd = input("When did or will you graduate? ")
     majorDegree = input("What major did you / will you graduate on? ")
     minorDegree = input("What minor degree did you / will you graduate on? ")
     #define blank node for education entry
-    eduNode = BNode('_:education')
     
     #define the triples:
     eduTriple = [
         #create education organization
+        (cv[eduOrgURI],rdfType,cv['Education']),
         (cv[eduOrg],rdfType,cv['EduOrg']),
         (cv[eduOrg],cv['has_location'],Literal(ePlace)),
-        (eduNode,rdfType,cv['Education']),
-        (eduNode,cv['studiedIn'],cv[eduOrg]),
-        (eduNode,cv['edStartDate'],Literal(dateStart)),
-        (eduNode,cv['edEndDate'],Literal(dateEnd)),
-        (eduNode,cv['majorDegree'],Literal(majorDegree)),
-        (eduNode,cv['minorDegree'],Literal(minorDegree))
+        (cv[eduOrgURI],cv['studiedIn'],cv[eduOrg]),
+        (cv[eduOrgURI],cv['edStartDate'],Literal(dateStart)),
+        (cv[eduOrgURI],cv['edEndDate'],Literal(dateEnd)),
+        (cv[eduOrgURI],cv['majorDegree'],Literal(majorDegree)),
+        (cv[eduOrgURI],cv['minorDegree'],Literal(minorDegree))
 
     ]
+
+    # bind applicant to Education
+    for applicant in graph.subjects(rdfType,FOAF.Person):
+        eduTriple.append((applicant,cv['has_education'],cv[eduOrgURI]))
     
     for triple in eduTriple: graph.add(triple)
     return graph
@@ -124,7 +133,6 @@ def addSkill(graph):
     
     for triple in skillTriple: graph.add(triple)
         
-
     return graph
     
 
