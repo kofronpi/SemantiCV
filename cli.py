@@ -1,5 +1,7 @@
+from rdflib import Graph
 menu_item = 0
 menu_exp = 0
+graph = Graph()
 from cvdata import addWorkExp
 from cvdata import addEdu
 from cvdata import addSkill
@@ -44,10 +46,14 @@ while menu_item != 5:
                     menu_exp = int(input("Pick an item from the menu: "))
                 except ValueError:
                     pass
-                if menu_item == 1:exportRDF()     
-                elif menu_item == 2:exportJSONLD()
-                elif menu_item == 3:exportN3()
-                elif menu_item == 4:exportTURTLE()
+                if menu_exp == 1:
+                    exportRDF()     
+                elif menu_exp == 2:
+                    exportJSONLD()
+                elif menu_exp == 3:
+                    exportN3()
+                elif menu_exp == 4:
+                    exportTURTLE()
 
  
 print("Goodbye! ")
