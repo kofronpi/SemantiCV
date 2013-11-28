@@ -1,12 +1,12 @@
 
 def exportRDF():
-    print("export done!")
+    print("RDF export done!")
 
 def exportJSONLD():
-    print("export done!")
+    print("JSON/LD export done!")
 
 def exportN3():
-    print("export done!")
+    print("N3 export done!")
 
 def exportTURTLE():
-    print("export done!")
+    print("Turtle export done!")
