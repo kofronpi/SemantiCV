@@ -1,10 +1,12 @@
-from rdflib import Graph
+from rdflib import ConjunctiveGraph
 menu_item = 0
 menu_exp = 0
-graph = Graph()
+from cv_ontology import initGraph
 from cvdata import addWorkExp
 from cvdata import addEdu
 from cvdata import addSkill
+g = ConjunctiveGraph()
+initGraph(g)
 
 from export import exportRDF
 from export import exportJSONLD
