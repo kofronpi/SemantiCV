@@ -25,6 +25,7 @@ print("#     # #      #    # #    # #   ##   #   # #     #   # #")
 print(" #####  ###### #    # #    # #    #   #   #  #####     #") 
 print("")
 print("")
+
 #prompt for user details
 g=setApplicant(g)
 

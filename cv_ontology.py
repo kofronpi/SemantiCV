@@ -65,7 +65,7 @@ def initGraph(g):
         (cv['Skill'], rdfsSubClassOf, cv['CVEntry']),
         (cv['Company'], rdfsSubClassOf, cv['Organization']),
         (cv['EduOrg'], rdfsSubClassOf, cv['Organization']),
-        #has_name property
+        #has_name property, probably obsolete
         (cv['has_name'], rdfType, owlObjectProperty),
         (cv['has_name'], rdfsDomain, owlClass),
         (cv['has_name'], rdfsRange, xsdString),
