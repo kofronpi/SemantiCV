@@ -1,4 +1,5 @@
 from rdflib import ConjunctiveGraph, Namespace, Literal, BNode
+
 #define the namespace and classes :
 owlNS = Namespace("http://www.w3.org/2002/07/owl#")
 owlClass = owlNS["Class"]
@@ -47,45 +48,77 @@ def addWorkExp(graph):
     jobTitle = input("What was your job title? ")
     jobDescription = input("Shortly describe what was your work. ")
     #define blank node for WE
-    wexp = BNode('_:worp1')
+    wexp = BNode('_:work experience')
     #define the triples:
     workExpTriple = [
         #new work experience entry
         (wexp,rdfType,cv['WorkExperience']),
         #company name
-        (wexp,cv['has_name'],Literal(company,datatype=xsdString)),
+        (wexp,cv['has_name'],Literal(company)),
         #place
-        (wexp,cv['has_location'],Literal(place,datatype=xsdString)),
+        (wexp,cv['has_location'],Literal(place)),
         #dateStart
-        (wexp,cv['workStartDate'],Literal(dateStart,datatype=xsdString)),
+        (wexp,cv['workStartDate'],Literal(dateStart)),
         #dateEnd
-        (wexp,cv['workEndDate'],Literal(dateEnd,datatype=xsdString)),
+        (wexp,cv['workEndDate'],Literal(dateEnd)),
         #jobTitle
-        (wexp,cv['jobTitle'],Literal(jobTitle,datatype=xsdString)),
+        (wexp,cv['jobTitle'],Literal(jobTitle)),
         #jobDescription
-        (wexp,cv['jobDescription'],Literal(jobDescription,datatype=xsdString))
+        (wexp,cv['jobDescription'],Literal(jobDescription))
     ]
 
     for triple in workExpTriple: graph.add(triple)
     return graph
     
 
-def addEdu():
+def addEdu(graph):
     eduOrg = input("What was your education organization? (eg: University of Technology of Sydney) ")
     ePlace = input("Where was the organization located? (eg:Sydney) ")
     dateStart = input("When did you start studying? ")
     dateEnd = input("When did or will you graduate? ")
     majorDegree = input("What major did you / will you graduate on? ")
     minorDegree = input("What minor degree did you / will you graduate on? ")
-    #write in file here
+    #define blank node for education entry
+    eduNode = BNode('_:education')
+    
+    #define the triples:
+    eduTriple = [
+        #create education organization
+        (cv[eduOrg],rdfType,cv['EduOrg']),
+        (cv[eduOrg],cv['has_location'],Literal(ePlace)),
+        (eduNode,rdfType,cv['Education']),
+        (eduNode,cv['studiedIn'],cv[eduOrg]),
+        (eduNode,cv['edStartDate'],Literal(dateStart)),
+        (eduNode,cv['edEndDate'],Literal(dateEnd)),
+        (eduNode,cv['majorDegree'],Literal(majorDegree)),
+        (eduNode,cv['minorDegree'],Literal(minorDegree))
+
+    ]
+    
+    for triple in eduTriple: graph.add(triple)
+    return graph
 
 
-def addSkill():
+def addSkill(graph):
     skName = input("Name your skill! (eg: Butterfly hunting) ")
     skCategory = input("What's this skill category? ")
     skExpertise = input("Rate your expertise in this skill from 1 to 10. ")
-    #write in file here
 
+    skillNode = BNode('_:skill')
+    #define the triples:
+    skillTriple = [
+        (skillNode,rdfType,cv['Skill']),
+        #skill name
+        (skillNode,cv['has_name'],Literal(skName)),
+        # skill category
+        (skillNode,cv['skCategory'],Literal(skCategory)),
+        # skill expertise
+        (skillNode,cv['skExpertise'],Literal(skExpertise))
+     ]
+    
+    for triple in skillTriple: graph.add(triple)
+        
 
-#def editApplicant():
+    return graph
+    
     
