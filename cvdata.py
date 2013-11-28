@@ -1,3 +1,4 @@
+#SemantiCV v0.1
 from rdflib import ConjunctiveGraph, Namespace, Literal, BNode, URIRef
 from rdflib.namespace import FOAF
 from inputs import camelCase

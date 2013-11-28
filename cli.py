@@ -1,3 +1,4 @@
+#SemantiCV v0.1
 from rdflib import ConjunctiveGraph
 from cv_ontology import initGraph
 from cvdata import addWorkExp
