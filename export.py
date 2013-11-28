@@ -1,12 +1,18 @@
+from rdflib import ConjunctiveGraph
 
-def exportRDF():
-    print("RDF export done!")
+def exportN3(graph):
+    graph.serialize("exports/export.n3",format="n3")
+    print("N3 export file successfully written to disk.")
 
-def exportJSONLD():
-    print("JSON/LD export done!")
+def exportNT(graph):
+    graph.serialize("exports/export.nt",format="nt")
+    print("NT export file successfully written to disk.")
 
-def exportN3():
-    print("N3 export done!")
+def exportTRIG(graph):
+    graph.serialize("exports/export.trig",format="trig")
+    print("Trig export file successfully written to disk.")
 
-def exportTURTLE():
-    print("Turtle export done!")
+def exportTURTLE(graph):
+    graph.serialize("exports/export.turtle",format="turtle")
+    print("Turtle export file successfully written to disk.")
+    

@@ -28,6 +28,7 @@ def initGraph(g):
 
     #define properties
 
+    hasName = cv['has_name']
     hasLocation = cv['has_location']
     edStartDate = cv['edStartDate']
     edEndDate = cv['edEndDate']
@@ -61,6 +62,10 @@ def initGraph(g):
         (cv['Skill'], rdfsSubClassOf, cv['CVEntry']),
         (cv['Company'], rdfsSubClassOf, cv['Organization']),
         (cv['EduOrg'], rdfsSubClassOf, cv['Organization']),
+        #has_name property
+        (cv['has_name'], rdfType, owlObjectProperty),
+        (cv['has_name'], rdfsDomain, cv['Organization']),
+        (cv['has_name'], rdfsRange, xsdString),
         #hasLocation property
         (cv['has_location'], rdfType, owlObjectProperty),
         (cv['has_location'], rdfsDomain, cv['Organization']),
